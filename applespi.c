@@ -587,7 +587,11 @@ static void applespi_setup_read_txfrs(struct applespi_data *applespi)
 	memset(dl_t, 0, sizeof(*dl_t));
 	memset(rd_t, 0, sizeof(*rd_t));
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 13, 0)
+	dl_t->delay.value = applespi->spi_settings.spi_cs_delay;
+#else
 	dl_t->delay_usecs = applespi->spi_settings.spi_cs_delay;
+#endif
 
 	rd_t->rx_buf = applespi->rx_buffer;
 	rd_t->len = APPLESPI_PACKET_SIZE;
@@ -616,14 +620,26 @@ static void applespi_setup_write_txfrs(struct applespi_data *applespi)
 	 * end up with an extra unnecessary (but harmless) cs assertion and
 	 * deassertion.
 	 */
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 13, 0)
+	wt_t->delay.value = SPI_RW_CHG_DELAY_US;
+#else
 	wt_t->delay_usecs = SPI_RW_CHG_DELAY_US;
+#endif
 	wt_t->cs_change = 1;
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 13, 0)
+	dl_t->delay.value = applespi->spi_settings.spi_cs_delay;
+#else
 	dl_t->delay_usecs = applespi->spi_settings.spi_cs_delay;
+#endif
 
 	wr_t->tx_buf = applespi->tx_buffer;
 	wr_t->len = APPLESPI_PACKET_SIZE;
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 13, 0)
+	wr_t->delay.value = SPI_RW_CHG_DELAY_US;
+#else
 	wr_t->delay_usecs = SPI_RW_CHG_DELAY_US;
+#endif
 
 	st_t->rx_buf = applespi->tx_status;
 	st_t->len = APPLESPI_STATUS_SIZE;

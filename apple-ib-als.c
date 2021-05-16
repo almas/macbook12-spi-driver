@@ -488,7 +488,11 @@ static int appleals_config_iio(struct appleals_device *als_dev)
 		goto free_iio_dev;
 	}
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 13, 0)
+	iio_trig = iio_trigger_alloc(&iio_dev->dev, "%s-dev%d", iio_dev->name, iio_dev->id);
+#else
 	iio_trig = iio_trigger_alloc("%s-dev%d", iio_dev->name, iio_dev->id);
+#endif
 	if (!iio_trig) {
 		rc = -ENOMEM;
 		goto clean_trig_buf;

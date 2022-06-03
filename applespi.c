@@ -2125,7 +2125,11 @@ static void applespi_drain_reads(struct applespi_data *applespi)
 	spin_unlock_irqrestore(&applespi->cmd_msg_lock, flags);
 }
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 18, 1)
+static void applespi_remove(struct spi_device *spi)
+#else
 static int applespi_remove(struct spi_device *spi)
+#endif
 {
 	struct applespi_data *applespi = spi_get_drvdata(spi);
 
@@ -2139,7 +2143,9 @@ static int applespi_remove(struct spi_device *spi)
 
 	debugfs_remove_recursive(applespi->debugfs_root);
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 18, 1)
 	return 0;
+#endif
 }
 
 static void applespi_shutdown(struct spi_device *spi)

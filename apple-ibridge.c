@@ -843,13 +843,13 @@ static int appleib_probe(struct acpi_device *acpi)
 	return 0;
 }
 
-static int appleib_remove(struct acpi_device *acpi)
+static void appleib_remove(struct acpi_device *acpi)
 {
 	struct appleib_device *ib_dev = acpi_driver_data(acpi);
 
 	hid_unregister_driver(&ib_dev->ib_driver);
 
-	return 0;
+	return;
 }
 
 static int appleib_suspend(struct device *dev)

@@ -1,5 +1,13 @@
 CFLAGS_applespi.o = -I$(src)	# for tracing
 
+CONFIG_MODULE_SIG=n
+CONFIG_MODULE_SIG_ALL=n
+# CONFIG_MODULE_SIG_FORCE is not set 
+# CONFIG_MODULE_SIG_SHA1 is not set
+# CONFIG_MODULE_SIG_SHA224 is not set
+# CONFIG_MODULE_SIG_SHA256 is not set
+# CONFIG_MODULE_SIG_SHA384 is not set
+
 KVERSION := $(KERNELRELEASE)
 ifeq ($(origin KERNELRELEASE), undefined)
 KVERSION := $(shell uname -r)

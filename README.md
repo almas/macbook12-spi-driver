@@ -89,3 +89,4 @@ Some useful threads:
 --------------------
 * https://bugzilla.kernel.org/show_bug.cgi?id=108331
 * https://bugzilla.kernel.org/show_bug.cgi?id=99891
+* https://gist.github.com/almas/5f75adb61bccf604b6572f763ce63e3e (Ubuntu LTS on MacBook Pro 2017 (A1707, MBP 14,3))

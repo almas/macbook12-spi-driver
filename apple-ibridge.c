@@ -898,7 +898,6 @@ MODULE_DEVICE_TABLE(acpi, appleib_acpi_match);
 static struct acpi_driver appleib_driver = {
 	.name		= "apple-ibridge",
 	.class		= "topcase", /* ? */
-	.owner		= THIS_MODULE,
 	.ids		= appleib_acpi_match,
 	.ops		= {
 		.add		= appleib_probe,

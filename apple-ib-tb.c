@@ -1264,17 +1264,9 @@ static void appletb_platform_remove(struct platform_device *pdev)
 	struct appleib_device_data *ddata = pdev->dev.platform_data;
 	struct appleib_device *ib_dev = ddata->ib_dev;
 	struct appletb_device *tb_dev = platform_get_drvdata(pdev);
-	int rc;
 
-	rc = appleib_unregister_hid_driver(ib_dev, &appletb_hid_driver);
-	if (rc)
-		goto error;
-
+ 	appleib_unregister_hid_driver(ib_dev, &appletb_hid_driver);
 	appletb_free_device(tb_dev);
-
-	return;
-
-error:
 	return;
 }
 

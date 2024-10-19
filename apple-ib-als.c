@@ -645,23 +645,14 @@ error:
 	return rc;
 }
 
-static int appleals_platform_remove(struct platform_device *pdev)
+static void appleals_platform_remove(struct platform_device *pdev)
 {
 	struct appleib_device_data *ddata = pdev->dev.platform_data;
 	struct appleib_device *ib_dev = ddata->ib_dev;
 	struct appleals_device *als_dev = platform_get_drvdata(pdev);
-	int rc;
-
-	rc = appleib_unregister_hid_driver(ib_dev, &appleals_hid_driver);
-	if (rc)
-		goto error;
-
+	appleib_unregister_hid_driver(ib_dev, &appleals_hid_driver);
 	kfree(als_dev);
-
-	return 0;
-
-error:
-	return rc;
+	return;
 }
 
 static const struct platform_device_id appleals_platform_ids[] = {

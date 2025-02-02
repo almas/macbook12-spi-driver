@@ -1259,7 +1259,7 @@ error:
 	return rc;
 }
 
-static int appletb_platform_remove(struct platform_device *pdev)
+static void appletb_platform_remove(struct platform_device *pdev)
 {
 	struct appleib_device_data *ddata = pdev->dev.platform_data;
 	struct appleib_device *ib_dev = ddata->ib_dev;
@@ -1272,10 +1272,10 @@ static int appletb_platform_remove(struct platform_device *pdev)
 
 	appletb_free_device(tb_dev);
 
-	return 0;
+	return;
 
 error:
-	return rc;
+	return;
 }
 
 static const struct platform_device_id appletb_platform_ids[] = {
